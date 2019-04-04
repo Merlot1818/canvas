@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <style>
+    html,
+    body {
+      margin: 0;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas" style="width:800px; height:600px;" width="800" height="600"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    function cloud(rect, r) {
+      var start = { x: rect.x, y: rect.y };
+      var end = { x: rect.x + rect.width, y: rect.y + rect.height };
+      ctx.beginPath();
+      ctx.strokeStyle = 'black';
+      ctx.lineWidth = 2;
+      ctx.moveTo(start.x, start.y);
+      ctx.fillStyle = 'red';
+      for (var i = start.x + r; i < end.x - r; i += 2 * r) {
+        ctx.arc(i, start.y, r, 1 * Math.PI, 2 * Math.PI);
+      }
+
+      for (var i = start.y + r; i < end.y - r; i += 2 * r) {
+        ctx.arc(end.x - r * 2, i, r, 3/2 * Math.PI, 1/2 * Math.PI);
+      }
+
+      for (var i = end.x - r; i > start.x + r; i -= 2 * r) {
+        ctx.arc(i- r * 2, end.y -r, r, 0 * Math.PI, 1 * Math.PI);
+      }
+      for (var i = end.y - r; i > start.y + r; i -= 2 * r) {
+        ctx.arc(start.x, i - r, r, 1/2 * Math.PI, 3/2 * Math.PI);
+      }
+      ctx.lineTo(start.x, start.y);
+      ctx.stroke();
+    }
+
+    cloud({x:100, y:100, width:300, height:200}, 6);
+  </script>
+</body>
+
+</html>
